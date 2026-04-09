@@ -1,0 +1,5 @@
+Hi {{ contact_name }},
+
+I’m exploring the {{ job_title }} role at {{ company_name }} and would appreciate any perspective on the team’s current priorities. My background is strongest in Python backend systems, distributed services, and platform reliability.
+
+Thanks for considering it.

@@ -1,0 +1,5 @@
+Hi {{ contact_name }},
+
+I saw the {{ job_title }} role at {{ company_name }} and it looks aligned with my backend and platform experience. I’ve worked on Python services, data infrastructure, and reliability-focused systems, and I’ve prepared a tailored resume for the role.
+
+If the team is still hiring, I’d love to connect.

@@ -1,0 +1,5 @@
+Hi {{ contact_name }},
+
+I’m reaching out about the {{ job_title }} opening at {{ company_name }}. The team’s focus on {{ job_focus }} lines up well with my experience building scalable backend systems and improving operational reliability.
+
+I’d welcome the chance to speak if this role is still open.

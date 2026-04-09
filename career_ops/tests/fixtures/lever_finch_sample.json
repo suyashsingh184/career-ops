@@ -1,0 +1,26 @@
+[
+  {
+    "id": "98e3347e-523d-494b-83be-70ebd01e3759",
+    "text": "Account Manager (Growth)",
+    "createdAt": 1770418123090,
+    "hostedUrl": "https://jobs.lever.co/finch/98e3347e-523d-494b-83be-70ebd01e3759",
+    "applyUrl": "https://jobs.lever.co/finch/98e3347e-523d-494b-83be-70ebd01e3759/apply",
+    "descriptionPlain": "Own customer growth accounts and partner with product and GTM teams.",
+    "descriptionBodyPlain": "Own customer growth accounts and partner with product and GTM teams.",
+    "categories": {
+      "commitment": "Full Time",
+      "location": "New York",
+      "team": "Business",
+      "allLocations": [
+        "New York"
+      ]
+    },
+    "workplaceType": "hybrid",
+    "salaryRange": {
+      "currency": "USD",
+      "interval": "per-year-salary",
+      "min": 125000,
+      "max": 139000
+    }
+  }
+]
