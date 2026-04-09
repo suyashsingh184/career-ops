@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Career-Ops Dashboard</title>
+    <style>
+      :root { color-scheme: light; --ink: #18202b; --muted: #5f6b7a; --bg: #f6f3ea; --card: #fffdf8; --accent: #b5532d; --ok: #1e7a52; }
+      body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: radial-gradient(circle at top right, #f8d6ba, transparent 25%), var(--bg); color: var(--ink); }
+      main { max-width: 1200px; margin: 0 auto; padding: 32px 20px 48px; }
+      .hero { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 24px; }
+      .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+      .card { background: var(--card); border: 1px solid #eadfce; border-radius: 18px; padding: 18px; box-shadow: 0 12px 40px rgba(24,32,43,.06); }
+      .stats { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+      .stat { background: rgba(255,255,255,.7); border: 1px solid #eadfce; border-radius: 16px; padding: 12px; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #efe6d9; vertical-align: top; }
+      a { color: var(--accent); text-decoration: none; }
+      .score { font-weight: bold; color: var(--ok); }
+      .muted { color: var(--muted); }
+      .actions { display:flex; gap:8px; flex-wrap:wrap; }
+      .actions form { margin:0; }
+      button { border: 0; border-radius: 999px; padding: 8px 12px; background: #1c2530; color: white; cursor: pointer; }
+      button.secondary { background: #e7dfd1; color: #1c2530; }
+      @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .hero { flex-direction: column; align-items: start; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Career-Ops</h1>
+          <p class="muted">Recent jobs, scores, resumes, outreach drafts, and application progress in one place.</p>
+        </div>
+        <div><a href="/jobs-view">Open jobs view</a></div>
+      </section>
+      <section class="stats">
+        <div class="stat"><strong>{{ stats.total_jobs }}</strong><br /><span class="muted">Tracked jobs</span></div>
+        <div class="stat"><strong>{{ stats.apply_now }}</strong><br /><span class="muted">Apply now</span></div>
+        <div class="stat"><strong>{{ stats.ready_to_apply }}</strong><br /><span class="muted">Ready to apply</span></div>
+        <div class="stat"><strong>{{ stats.applied }}</strong><br /><span class="muted">Applied</span></div>
+      </section>
+      <section class="grid">
+        <article class="card">
+          <h2>Jobs</h2>
+          <table>
+            <thead>
+              <tr><th>Company</th><th>Role</th><th>Score</th><th>Decision</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              {% for job in jobs %}
+              <tr>
+                <td>{{ job.company_name }}<div class="muted">{{ job.duplicate_status }}</div></td>
+                <td><a href="/jobs-view/{{ job.id }}">{{ job.title }}</a><div class="muted">{{ job.archetype or "unclassified" }}</div></td>
+                <td class="score">{{ job.match_score or "-" }}</td>
+                <td>{{ job.decision or "-" }}<div class="muted">{{ job.duplicate_reason or "" }}</div></td>
+                <td>{{ job.status }}<div class="muted">retries: {{ job.retry_count }}</div>{% if job.last_error %}<div class="muted">{{ job.last_error[:90] }}</div>{% endif %}</td>
+                <td>
+                  <div class="actions">
+                    <form method="post" action="/web/jobs/{{ job.id }}/score"><button class="secondary">Score</button></form>
+                    <form method="post" action="/web/jobs/{{ job.id }}/tailor"><button class="secondary">Tailor</button></form>
+                    <form method="post" action="/web/jobs/{{ job.id }}/contacts"><button class="secondary">Contacts</button></form>
+                    <form method="post" action="/web/jobs/{{ job.id }}/outreach"><button>Outreach</button></form>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </article>
+        <div>
+          <article class="card">
+            <h2>Applications</h2>
+            {% for application in applications %}
+            <p><strong>{{ application.method }}</strong> for {{ application.job.title if application.job else application.job_id }}<br /><span class="muted">{{ application.status }} | dry-run: {{ application.dry_run }}</span></p>
+            {% else %}
+            <p class="muted">No applications yet.</p>
+            {% endfor %}
+          </article>
+          <article class="card" style="margin-top:20px;">
+            <h2>Outreach</h2>
+            {% for message in outreach_messages %}
+            <p><strong>{{ message.message_type }}</strong><br /><span class="muted">{{ message.subject }}</span></p>
+            {% else %}
+            <p class="muted">No outreach drafts yet.</p>
+            {% endfor %}
+          </article>
+          <article class="card" style="margin-top:20px;">
+            <h2>Source Safety</h2>
+            {% for source, state in circuit_breakers.items() %}
+            <p><strong>{{ source }}</strong><br /><span class="muted">open={{ state.open }} failures={{ state.failure_count }}</span></p>
+            {% else %}
+            <p class="muted">No circuit breaker activity yet.</p>
+            {% endfor %}
+          </article>
+          <article class="card" style="margin-top:20px;">
+            <h2>Audit Trail</h2>
+            {% for audit in audits %}
+            <p><strong>{{ audit.action }}</strong><br /><span class="muted">{{ audit.entity_type }} {{ audit.entity_id }}</span></p>
+            {% else %}
+            <p class="muted">No audit events yet.</p>
+            {% endfor %}
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

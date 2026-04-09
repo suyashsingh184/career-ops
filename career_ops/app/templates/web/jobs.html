@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Career-Ops Jobs</title>
+    <style>
+      body { font-family: Georgia, serif; margin: 24px; background: #fbfaf7; color: #1c2530; }
+      .job { background: white; border: 1px solid #e8dece; padding: 18px; border-radius: 16px; margin-bottom: 16px; }
+      a { color: #a64b27; text-decoration: none; }
+      .meta { color: #677484; }
+      .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px; }
+      form { margin:0; }
+      button { border:0; background:#1c2530; color:white; padding:8px 12px; border-radius:999px; cursor:pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Jobs</h1>
+    {% for job in jobs %}
+    <article class="job">
+      <h2><a href="/jobs-view/{{ job.id }}">{{ job.title }}</a></h2>
+      <p>{{ job.company_name }} | {{ job.location or "Location TBD" }}</p>
+      <p class="meta">Score: {{ job.match_score or "-" }} | Decision: {{ job.decision or "-" }} | Status: {{ job.status }} | Duplicate: {{ job.duplicate_status }}</p>
+      {% if job.score_breakdown %}
+      <p class="meta">Breakdown: skill {{ job.score_breakdown["skill_match"] }}, stack {{ job.score_breakdown["stack_alignment"] }}</p>
+      {% endif %}
+      <div class="actions">
+        <form method="post" action="/web/jobs/{{ job.id }}/score"><button>Score</button></form>
+        <form method="post" action="/web/jobs/{{ job.id }}/tailor"><button>Tailor Resume</button></form>
+        <form method="post" action="/web/jobs/{{ job.id }}/contacts"><button>Find Contacts</button></form>
+        <form method="post" action="/web/jobs/{{ job.id }}/outreach"><button>Generate Outreach</button></form>
+      </div>
+    </article>
+    {% endfor %}
+  </body>
+</html>

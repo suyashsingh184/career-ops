@@ -1,0 +1,53 @@
+[
+  {
+    "source": "greenhouse",
+    "external_id": "gh-backend-1",
+    "company_name": "ScaleForge",
+    "title": "Senior Backend Infrastructure Engineer",
+    "location": "Remote (US)",
+    "employment_type": "Full-time",
+    "department": "Infrastructure",
+    "posted_at": "2026-04-09T12:00:00+00:00",
+    "url": "https://example.com/jobs/backend-infra",
+    "raw_description": "<p>Build Python services, PostgreSQL-backed APIs, Kubernetes automation, and distributed systems for developer platform teams.</p>",
+    "salary_min": 190000,
+    "salary_max": 230000,
+    "currency": "USD",
+    "is_remote": true,
+    "is_hybrid": false
+  },
+  {
+    "source": "lever",
+    "external_id": "lev-stream-1",
+    "company_name": "EventMesh",
+    "title": "Senior Data Streaming Engineer",
+    "location": "San Francisco, CA",
+    "employment_type": "Full-time",
+    "department": "Data Platform",
+    "posted_at": "2026-04-09T10:30:00+00:00",
+    "url": "https://example.com/jobs/data-streaming",
+    "raw_description": "<div>Design Kafka-based data pipelines, event-driven services, and streaming systems using Python and cloud infrastructure.</div>",
+    "salary_min": 200000,
+    "salary_max": 245000,
+    "currency": "USD",
+    "is_remote": false,
+    "is_hybrid": true
+  },
+  {
+    "source": "ashby",
+    "external_id": "ashby-fullstack-1",
+    "company_name": "ProductNest",
+    "title": "Senior Fullstack Product Engineer",
+    "location": "New York, NY",
+    "employment_type": "Full-time",
+    "department": "Product Engineering",
+    "posted_at": "2026-04-09T11:15:00+00:00",
+    "url": "https://example.com/jobs/fullstack-product",
+    "raw_description": "<section>Own full stack product features with React, TypeScript, Python APIs, and cross-functional product collaboration.</section>",
+    "salary_min": 180000,
+    "salary_max": 220000,
+    "currency": "USD",
+    "is_remote": false,
+    "is_hybrid": true
+  }
+]

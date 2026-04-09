@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "board_name": "Anthropic"
+  },
+  "jobs": [
+    {
+      "id": 1001,
+      "title": "Staff+ Software Engineer, Data Infrastructure",
+      "absolute_url": "https://job-boards.greenhouse.io/anthropic/jobs/1001",
+      "updated_at": "2026-04-09T18:34:20-04:00",
+      "first_published": "2026-04-09T16:02:00-04:00",
+      "company_name": "Anthropic",
+      "location": {
+        "name": "San Francisco, CA | Seattle, WA"
+      },
+      "departments": [
+        {
+          "id": 4001,
+          "name": "Software Engineering - Infrastructure",
+          "child_ids": [],
+          "parent_id": null
+        }
+      ],
+      "metadata": [
+        {
+          "id": 5001,
+          "name": "Location Type",
+          "value": "Remote-Friendly",
+          "value_type": "single_select"
+        },
+        {
+          "id": 5002,
+          "name": "Employment Type",
+          "value": "Full-time",
+          "value_type": "single_select"
+        }
+      ],
+      "content": "<p>Build data infrastructure, Python systems, and platform capabilities for a high-scale AI company.</p>"
+    }
+  ]
+}
