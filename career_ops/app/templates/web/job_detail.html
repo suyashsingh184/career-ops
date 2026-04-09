@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ job.title }}</title>
+    <style>
+      body { font-family: Georgia, serif; margin: 24px auto; max-width: 900px; background: #fbfaf7; color: #1c2530; }
+      pre { white-space: pre-wrap; background: white; padding: 16px; border-radius: 12px; border: 1px solid #e8dece; }
+      a { color: #a64b27; }
+      .panel { background:white; border:1px solid #e8dece; border-radius:12px; padding:16px; margin:16px 0; }
+      .actions { display:flex; gap:8px; flex-wrap:wrap; }
+      form { margin:0; }
+      button { border:0; background:#1c2530; color:white; padding:8px 12px; border-radius:999px; cursor:pointer; }
+    </style>
+  </head>
+  <body>
+    <p><a href="/jobs-view">Back to jobs</a></p>
+    <h1>{{ job.title }}</h1>
+    <p>{{ job.company_name }} | {{ job.location or "Location TBD" }}</p>
+    <p>Archetype: {{ job.archetype or "unclassified" }} | Score: {{ job.match_score or "-" }} | Decision: {{ job.decision or "-" }}</p>
+    <p>Duplicate status: {{ job.duplicate_status }}{% if job.canonical_job_id %} | Canonical job: {{ job.canonical_job_id }}{% endif %}</p>
+    {% if job.score_breakdown %}
+    <section class="panel">
+      <h2>Score Breakdown</h2>
+      <pre>{{ job.score_breakdown }}</pre>
+    </section>
+    {% endif %}
+    <div class="actions">
+      <form method="post" action="/web/jobs/{{ job.id }}/score"><button>Score</button></form>
+      <form method="post" action="/web/jobs/{{ job.id }}/tailor"><button>Tailor Resume</button></form>
+      <form method="post" action="/web/jobs/{{ job.id }}/contacts"><button>Find Contacts</button></form>
+      <form method="post" action="/web/jobs/{{ job.id }}/outreach"><button>Generate Outreach</button></form>
+    </div>
+    <p><a href="{{ job.url }}">Job posting</a></p>
+    <section class="panel">
+      <h2>Resumes</h2>
+      {% for resume in resumes %}
+      <p><a href="/data/resumes/{{ resume.docx_path.split('/')[-1] }}">{{ resume.docx_path.split('/')[-1] }}</a><br />version {{ resume.version }} | {{ resume.status }} | key {{ resume.generation_key }}</p>
+      {% else %}
+      <p>No tailored resumes yet.</p>
+      {% endfor %}
+    </section>
+    <section class="panel">
+      <h2>Contacts</h2>
+      {% for contact in contacts %}
+      <p><strong>{{ contact.contact_type }}</strong>: {{ contact.title or "Lookup target" }}<br />{{ contact.search_hint or contact.linkedin_url or "No hint" }}</p>
+      {% else %}
+      <p>No suggested contacts yet.</p>
+      {% endfor %}
+    </section>
+    <section class="panel">
+      <h2>Outreach Drafts</h2>
+      {% for message in outreach_messages %}
+      <p><strong>{{ message.message_type }}</strong><br />{{ message.subject }} | {{ message.status }} | {{ message.template_version }} | version {{ message.version }}</p>
+      <pre>{{ message.body }}</pre>
+      {% else %}
+      <p>No outreach drafts yet.</p>
+      {% endfor %}
+    </section>
+    <section class="panel">
+      <h2>Applications</h2>
+      {% for application in applications %}
+      <p><strong>{{ application.method }}</strong>: {{ application.status }}<br />dry-run={{ application.dry_run }} approved={{ application.explicit_submit_approved }}<br />{{ application.notes or "" }}</p>
+      {% else %}
+      <p>No applications queued yet.</p>
+      {% endfor %}
+    </section>
+    <section class="panel">
+      <h2>Canonical Group</h2>
+      {% for grouped_job in canonical_group %}
+      <p>{{ grouped_job.company_name }} - {{ grouped_job.title }} ({{ grouped_job.source }}) | {{ grouped_job.duplicate_status }}</p>
+      {% else %}
+      <p>No related duplicates.</p>
+      {% endfor %}
+    </section>
+    {% if job.last_error %}
+    <section class="panel">
+      <h2>Last Failure</h2>
+      <pre>{{ job.last_error }}</pre>
+    </section>
+    {% endif %}
+    <pre>{{ job.normalized_description }}</pre>
+  </body>
+</html>

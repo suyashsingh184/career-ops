@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: career_ops
+      POSTGRES_USER: career_ops
+      POSTGRES_PASSWORD: career_ops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      CAREER_OPS_DATABASE_URL: postgresql+psycopg://career_ops:career_ops@db:5432/career_ops
+      CAREER_OPS_DATA_DIR: /app/data
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
