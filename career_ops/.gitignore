@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+data/.pycache/
+data/resumes/*.docx
+data/resumes/*.pdf
+data/outreach/*
+data/logs/*
+!data/raw_jobs/
+!data/processed_jobs/
+!data/resumes/
+!data/outreach/
+!data/logs/
